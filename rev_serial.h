@@ -2,7 +2,6 @@
 #define __REV_SERIAL_H__
 
 #include <stdio.h>
-#include <inttypes.h>
 
 /**
  * @brief Putchar to serial.

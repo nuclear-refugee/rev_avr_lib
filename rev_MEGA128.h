@@ -13,6 +13,19 @@
 #define S_UCSRB	UCSR0B
 #define S_UCSRC	UCSR0C
 
+/**
+ * @brief Defines for spi
+ * usually 1 spi channel in avr
+ */
+#define SPI_SPCR  SPCR
+#define SPI_SPSR  SPSR
+#define SPI_PORT  PORTB
+#define SPI_PIN	  PINB
+#define SPI_DDR   DDRB
+#define PIN_MISO  PB3
+#define PIN_MOSI  PB2
+#define PIN_SCK	  PB1
+#define PIN_SS    PB0
 
 //UART1
 #define UART_PORT1	PORTD
@@ -27,14 +40,6 @@
 #define TWI_SCL		PD0
 #define TWI_SDA		PD1
 
-//SPI
-#define SPI_PORT	PORTB
-#define SPI_PIN		PINB
-#define SPI_DDR		DDRB
-#define SPI_MISO	PB3
-#define SPI_MOSI	PB2
-#define SPI_SCK		PB1
-#define SPI_SS      PB0
 
 
 //DIO
