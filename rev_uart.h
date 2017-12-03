@@ -1,3 +1,12 @@
+/**
+ * @file rev_uart.h
+ * @author LiYu
+ * @date 2017.12.03
+ * @brief Uart functions.
+ *
+ */
+// TODO add file description
+
 #ifndef _REV_UART_H_
 #define _REV_UART_H_
 
@@ -166,4 +175,4 @@ uint8_t uart_en_MPCM(uint8_t isEnable);
  */
 uint8_t uart_en_sync(uint8_t isEnable);
 
-#endif
+#endif /* _REV_UART_H_ */
