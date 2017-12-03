@@ -5,19 +5,18 @@
 
 void uart_set_baud(uint16_t baud);
 void uart_set_sync();
-enum uart_parity {
-    parity_disable,
-    parity_enen,
-    parity_odd,
+enum uart_check {
+    check_disable,
+    check_even,
+    check_odd,
 };
-void uart_set_parity();
+void uart_set_check(enum uart_check check);
 
 enum uart_stop_bits {
     stop_bits_1,
     stop_bits_2
-
 };
-void uart_set_stop_bits(enum uart_stop_bits bits);
+void uart_set_stop_bits(enum uart_stop_bits stop_bits);
 
 enum uart_data_size {
     data_size_5_bits,
