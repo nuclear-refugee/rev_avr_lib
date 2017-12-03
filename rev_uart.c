@@ -3,8 +3,10 @@
 #include "bit_op.h"
 
 uint8_t uart_init() {
-	UCSRB |= (1<<RXEN) | (1<<TXEN);
-	UCSRC |= (3<<UCSZ0);
+	uart_en_rx(1);
+	uart_en_tx(0);
+	uart_set_baud(BAUD);
+	uart_set_data_size(size_8_bits);
     return 0;
 };
 
