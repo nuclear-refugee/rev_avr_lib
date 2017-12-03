@@ -175,4 +175,52 @@ uint8_t uart_en_MPCM(uint8_t isEnable);
  */
 uint8_t uart_en_sync(uint8_t isEnable);
 
+/**
+ * @brief Return is uart Transmit Complete.
+ */
+uint8_t uart_is_tx_complete();
+/**
+ * @brief Return is uart Receive Complete.
+ */
+uint8_t uart_is_rx_complete();
+/**
+ * @brief Return is uart Data Register Empty
+ *
+ * The UDREn flag indicates if the transmit buffer (UDRn) is ready to receive
+ * new data. If UDREn is one, the buffer is empty, and therefore ready to be
+ * written. The UDREn flag can generate a Data Register Empty interrupt (see
+ * description of the UDRIEn bit).
+ * UDREn is set after a reset to indicate that the Transmitter is ready.
+ */
+uint8_t uart_is_data_empty();
+/**
+ * @brief Return is Frame Error happened
+ *
+ * Is set if the next character in the receive buffer had a Frame Error when
+ * received. I.e. when the first stop bit of the next character in the receive
+ * buffer is zero. This bit is valid until the receive buffer (UDRn) is read.
+ * The FEn bit is zero when the stop bit of received data is one. Always set
+ * this bit to zero when writing to UCSRnA.
+ */
+uint8_t uart_is_err_frame();
+/**
+ * @brief Return is Data OverRun happened
+ *
+ * This bit is set if a Data OverRun condition is detected. A data overrun
+ * occurs when the receive buffer is full (two characters), it is a new
+ * character waiting in the Receive Shift Register, and a new start bit is
+ * detected. This bit is valid until the receive buffer (UDRn) is read. Always
+ * set this bit to zero when writing to UCSRnA.
+ */
+uint8_t uart_is_err_overrun();
+/**
+ * @brief Return is Parity Error happened
+ *
+ * Is set if the next character in the receive buffer had a Parity Error when
+ * received and the parity checking was enabled at that point (UPMn1 = 1).
+ * This bit is valid until the receive buffer (UDRn) is read. Always set this
+ * bit to zero when writing to UCSRnA.
+ */
+uint8_t uart_is_err_check();
+
 #endif /* _REV_UART_H_ */
