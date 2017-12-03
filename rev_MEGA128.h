@@ -27,11 +27,16 @@
 #define PIN_SCK	  PB1
 #define PIN_SS    PB0
 
-//UART1
-#define UART_PORT1	PORTD
-#define UART_PIN1	PIND
-#define UART_RXD1	PD1
-#define UART_TXD1	PD2
+/**
+ * @brief Defines for uart
+ * usually use usart1 as default uart
+ */
+#define UDR	    UDR1
+#define UCSRA   UCSR1A
+#define UCSRB   UCSR1B
+#define UCSRC   UCSR1C
+#define UBRRH   UBRR1H
+#define UBRRL   UBRR1L
 
 //TWI
 #define TWI_PORT	PORTD
@@ -64,24 +69,5 @@
 #define ADDR1       PB6
 #define ADDR2       PB7
 
-//ASA_ID
-#define ADDR_PORT_num 1
-#define ADDR_PORT_msk (1<<5)|(1<<6)|(1<<7)
-#define ADDR_PORT_sht 5
-// SPI ADDR use PORTB bit 5,6,7 as id 0~7
-// use DIO_put to set ADDR
-
-#define DDR_SPI_num 1
-#define DD_MISO DDB3
-#define DD_MOSI DDB2
-#define DD_SCK  DDB1
-#define DD_SS   DDB0
-// SPI use PORTB
-
-#define CS_pin PF4
-#define CS_PORT_NUM 5
-#define CS_PORT_MSK (1<<CS_pin)
-#define CS_PORT_SHT CS_pin
-// CS : PF4
 
 #endif
