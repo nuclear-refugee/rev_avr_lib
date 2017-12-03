@@ -53,11 +53,11 @@ enum uart_stop_bits {
 uint8_t uart_set_stop_bits(enum uart_stop_bits stop_bits);
 
 enum uart_data_size {
-    data_size_5_bits, ///< Data size is 5-bit.
-    data_size_6_bits, ///< Data size is 6-bit.
-    data_size_7_bits, ///< Data size is 7-bit.
-    data_size_8_bits, ///< Data size is 8-bit.
-    data_size_9_bits, ///< Data size is 9-bit.
+    size_5_bits, ///< Data size is 5-bit.
+    size_6_bits, ///< Data size is 6-bit.
+    size_7_bits, ///< Data size is 7-bit.
+    size_8_bits, ///< Data size is 8-bit.
+    size_9_bits, ///< Data size is 9-bit.
 };
 /**
  * @brief Set uart data size. (default is 8)
