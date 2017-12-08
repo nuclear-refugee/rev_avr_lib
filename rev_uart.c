@@ -4,7 +4,7 @@
 
 uint8_t uart_init() {
 	uart_en_rx(1);
-	uart_en_tx(0);
+	uart_en_tx(1);
 	uart_set_baud(BAUD);
 	uart_set_data_size(size_8_bits);
     return 0;
