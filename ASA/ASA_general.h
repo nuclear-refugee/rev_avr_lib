@@ -5,6 +5,7 @@
 #define ASA_REGGET(dest, mask, shift) (((dest) & (mask)) >> shift)
 
 #include <inttypes.h>
+#include "ASA_DEVICE.h"
 
 /**
 * @brief ASA_ID_set()

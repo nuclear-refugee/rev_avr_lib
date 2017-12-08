@@ -1,6 +1,5 @@
 #include "ASA_DIO.h"
 #include "ASA_general.h"
-#include "ASA_DEVICE.h"
 
 char M128_DIO_set(char LSByte, char Mask, char shift, char Data) {
     if(LSByte<200||LSByte>206)

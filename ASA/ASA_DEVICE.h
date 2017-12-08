@@ -1,8 +1,6 @@
 #ifndef __ASA_DEVICE_H__
 #define __ASA_DEVICE_H__
 
-#include "..\rev_DEVICE.h"
-
 #if defined (__AVR_ATmega128__)
 #include "ASA_M128.h"
 #elif defined (__AVR_ATmega88__)

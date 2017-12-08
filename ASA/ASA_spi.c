@@ -1,6 +1,18 @@
 #include "ASA_spi.h"
 #include "ASA_general.h"
 
+#define REGPUT(ADDRESS, MASK, DATA) (ADDRESS = ((ADDRESS)&(~MASK)) | ((DATA) & (MASK)))
+
+void ASA_SPIM_cs_init() {
+    ASA_REGPUT(ASA_CS_DDR, 1, ASA_CS_MASK, ASA_CS_SHIFT);
+}
+
+void ASA_SPIM_cs(uint8_t isEnable) {
+    if(isEnable>1)
+    return;
+    ASA_REGPUT(ASA_CS_PORT, isEnable, ASA_CS_MASK, ASA_CS_SHIFT);
+}
+
 char ASA_SPIM_trm(char isOneSLA, char isOneReg, char UARTID, char RegAdd, char Bytes, void *Data_p) {
     if ( isOneSLA!=0 || isOneSLA!=1) return 1;
     if ( isOneReg!=0 || isOneReg!=1) return 2;
