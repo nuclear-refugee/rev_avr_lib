@@ -47,25 +47,25 @@ uint8_t spi_set_dataorder(enum spi_data_order order);
  * @brief Set spi as master.
  *
  */
-uint8_t spi_set_master();
+uint8_t spi_master_init();
 
 /**
  * @brief Set spi as slave.
  *
  */
-uint8_t spi_set_slave();
+uint8_t spi_slave_init();
 
 /**
  * @brief Switch SPI to Enable or Disable.
  *
  */
-uint8_t spi_sw(uint8_t isEnable);
+uint8_t spi_en(uint8_t isEnable);
 
 /**
  * @brief Switch SPI interrupt to Enable or Disable.
  *
  */
-uint8_t spi_int_sw(uint8_t isEnable);
+uint8_t spi_en_int(uint8_t isEnable);
 
 /**
  * @brief Swap SPI data.
