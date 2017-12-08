@@ -36,7 +36,7 @@ uint8_t spi_set_dataorder(enum spi_data_order order) {
     return 0;
 };
 
-uint8_t spi_set_master() {
+uint8_t spi_master_init() {
     BITSET(SPI_SPCR,MSTR);
     REGPUT(SPI_DDR,
            (1<<PIN_MISO)|(1<<PIN_MOSI)|(1<<PIN_SCK)|(1<<PIN_SS),
@@ -47,7 +47,7 @@ uint8_t spi_set_master() {
     return 0;
 };
 
-uint8_t spi_set_slave() {
+uint8_t spi_slave_init() {
     BITCLR(SPI_SPCR,MSTR);
     REGPUT(SPI_DDR,
            (1<<PIN_MISO)|(1<<PIN_MOSI)|(1<<PIN_SCK)|(1<<PIN_SCK),
@@ -58,7 +58,7 @@ uint8_t spi_set_slave() {
     return 0;
 };
 
-uint8_t spi_sw(uint8_t isEnable) {
+uint8_t spi_en(uint8_t isEnable) {
     if (isEnable == 1) {
         BITSET(SPI_SPCR,SPE);
     } else if (isEnable == 0) {
@@ -69,7 +69,7 @@ uint8_t spi_sw(uint8_t isEnable) {
     return 0;
 };
 
-uint8_t spi_intterupt_sw(uint8_t isEnable) {
+uint8_t spi_en_int(uint8_t isEnable) {
     if (isEnable == 1) {
         BITSET(SPI_SPCR,SPIE);
     } else if (isEnable == 0) {
