@@ -4,6 +4,16 @@
 #include "../rev_spi.h"
 
 /**
+* @brief Init ASA_SPI_CS pin 
+*/
+void ASA_SPIM_cs_init();
+
+/**
+* @brief set ASA_SPI_CS
+*/
+void ASA_SPIM_cs(uint8_t isEnable);
+
+/**
 * @brief Replace of ASA_SPI_trm()
 */
 char ASA_SPIM_trm(char isOneSLA, char isOneReg, char SPIID, char RegAdd, char Bytes, void *Data_p);

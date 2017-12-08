@@ -1,6 +1,8 @@
 #ifndef __ASA_M128_H__
 #define __ASA_M128_H__
 
+#include "..\rev_DEVICE.h"
+
 /**
  * @brief Defines for serial
  * usually use UART0 for serial
