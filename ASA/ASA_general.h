@@ -10,10 +10,10 @@
 /**
 * @brief ASA_ID_set()
 */
-inline void ASA_ID_set(uint8_t data);
+void ASA_ID_set(uint8_t data);
 /**
 * @brief ASA_ID_init()
 */
-inline void ASA_ID_init();
+void ASA_ID_init();
 
 #endif /* _ASA_GENERAL_H_ */

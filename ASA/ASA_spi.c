@@ -1,7 +1,7 @@
 #include "ASA_spi.h"
 #include "ASA_general.h"
 
-#define REGPUT(ADDRESS, MASK, DATA) (ADDRESS = ((ADDRESS)&(~MASK)) | ((DATA) & (MASK)))
+#define REGPUT(ADDRESS, MASK, DATA) (ADDRESS = (((ADDRESS)&(~MASK)) | ((DATA) & (MASK))))
 
 void ASA_SPIM_cs_init() {
     ASA_REGPUT(ASA_CS_DDR, 1, ASA_CS_MASK, ASA_CS_SHIFT);

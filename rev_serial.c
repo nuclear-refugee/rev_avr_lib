@@ -8,13 +8,15 @@
 static FILE STDIO_BUFFER = FDEV_SETUP_STREAM(rev_serial_putchar, rev_serial_getchar, _FDEV_SETUP_RW);
 
 int rev_serial_putchar(char c, FILE *stream) {
-    while((UCSR0A&(1<<UDRE0))==0);
+    while((UCSR0A&(1<<UDRE0))==0)
+        ;
     UDR0 = c;
     return 0;
 }
 
 int rev_serial_getchar(FILE *stream) {
-    while((UCSR0A&(1<<RXC0))==0);
+    while((UCSR0A&(1<<RXC0))==0)
+        ;
 	return UDR0;
 }
 

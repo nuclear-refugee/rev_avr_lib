@@ -5,6 +5,6 @@
 #define BITCLR(ADDRESS,BIT)    (ADDRESS &= ~(1<<BIT))
 #define BITCHK(ADDRESS,BIT)    ((ADDRESS & (1<<BIT))==(1<<BIT))
 
-#define REGPUT(ADDRESS, MASK, DATA) (ADDRESS = ((ADDRESS)&(~MASK)) | ((DATA) & (MASK)))
+#define REGPUT(ADDRESS, MASK, DATA) (ADDRESS = (((ADDRESS)&(~MASK)) | ((DATA) & (MASK))))
 
 #endif
