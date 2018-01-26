@@ -5,3 +5,8 @@ serial_test: serial_test.hex
 	@make -f m128.make $<
 	@cmd_ASA_loader -p $(PORT) -h $<
 	@terminal -p $(PORT) -b $(BAUD)
+
+%:
+	@make -f m128.make $@.hex
+	@cmd_ASA_loader -p $(PORT) -h $@.hex
+	@terminal -p $(PORT) -b $(BAUD)

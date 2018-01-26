@@ -32,6 +32,7 @@ LIBS = -lm -lprintf_flt -lscanf_flt
 
 ## Objects that must be built in order to link
 LIBSRC = $(wildcard ../*.c)
+LIBSRC += $(wildcard ../ASA/*.c)
 LIBOBJS = $(patsubst %.c,%.o,$(LIBSRC))
 
 ## Objects explicitly added by the user
