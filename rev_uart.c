@@ -38,11 +38,11 @@ uint8_t uart_set_stop_bits(enum uart_stop_bits stop_bits) {
 
 uint8_t uart_set_data_size(enum uart_data_size size) {
     switch (size) {
-		case size_5_bits: BITCLR(UCSRB,UCSZ2); BITCLR(UCSRB,UCSZ1); BITCLR(UCSRB,UCSZ0); break;
-		case size_6_bits: BITCLR(UCSRB,UCSZ2); BITCLR(UCSRB,UCSZ1); BITSET(UCSRB,UCSZ0); break;
-		case size_7_bits: BITCLR(UCSRB,UCSZ2); BITSET(UCSRB,UCSZ1); BITCLR(UCSRB,UCSZ0); break;
-		case size_8_bits: BITCLR(UCSRB,UCSZ2); BITSET(UCSRB,UCSZ1); BITSET(UCSRB,UCSZ0); break;
-		case size_9_bits: BITSET(UCSRB,UCSZ2); BITSET(UCSRB,UCSZ1); BITSET(UCSRB,UCSZ0); break;
+		case size_5_bits: BITCLR(UCSRB,UCSZ2); BITCLR(UCSRC,UCSZ1); BITCLR(UCSRC,UCSZ0); break;
+		case size_6_bits: BITCLR(UCSRB,UCSZ2); BITCLR(UCSRC,UCSZ1); BITSET(UCSRC,UCSZ0); break;
+		case size_7_bits: BITCLR(UCSRB,UCSZ2); BITSET(UCSRC,UCSZ1); BITCLR(UCSRC,UCSZ0); break;
+		case size_8_bits: BITCLR(UCSRB,UCSZ2); BITSET(UCSRC,UCSZ1); BITSET(UCSRC,UCSZ0); break;
+		case size_9_bits: BITSET(UCSRB,UCSZ2); BITSET(UCSRC,UCSZ1); BITSET(UCSRC,UCSZ0); break;
 		default: return 1;
     }
 	return 0;
