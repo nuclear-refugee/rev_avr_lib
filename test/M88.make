@@ -1,5 +1,5 @@
 ## General Flags
-MCU = atmega58
+MCU = atmega88
 CC = avr-gcc
 CPP = avr-g++
 F_CPU = 8000000
@@ -19,7 +19,8 @@ ASMFLAGS += -x assembler-with-cpp -Wa,-gdwarf2
 
 ## Linker flags
 LDFLAGS = $(COMMON)
-LDFLAGS += -Wl,-u,vfprintf  -Wl,-u,vfscanf -Wl,-Map=$*.map
+# LDFLAGS += -Wl,-u,vfprintf  -Wl,-u,vfscanf
+LDFLAGS += -Wl,-Map=$*.map
 
 ## Intel Hex file production flags
 HEX_FLASH_FLAGS = -R .eeprom -R .fuse -R .lock -R .signature
@@ -28,7 +29,7 @@ HEX_EEPROM_FLAGS += --set-section-flags=.eeprom="alloc,load"
 HEX_EEPROM_FLAGS += --change-section-lma .eeprom=0 --no-change-warnings
 
 ## Libraries
-LIBS = -lm -lprintf_flt -lscanf_flt
+# LIBS = -lm -lprintf_flt -lscanf_flt
 
 ## Objects that must be built in order to link
 LIBSRC = $(wildcard ../*.c)
