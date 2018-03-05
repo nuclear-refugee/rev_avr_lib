@@ -26,19 +26,26 @@ uint8_t ASA_UARTM_trm(uint8_t UID, uint8_t RAdd, uint8_t Bytes, void *Data_p) {
         // TODO handle Bytes exception, if there is.
         return 3;
     }
+    uint8_t chksum = 0;
     
     uart_put(UART_HEADER);
+    chksum += UART_HEADER;
     
     uart_put(UID);
+    chksum += UID;
     
     // The bit UART_WR shold be 1 to send write command.
     uart_put( RAdd | (1<<UART_WR) );
+    chksum += RAdd | (1<<UART_WR);
     
     uart_put(Bytes);
+    chksum += Bytes;
     
     for (uint16_t i = 0; i < Bytes; i++) {
         uart_put( ((uint8_t*)Data_p)[i] );
+        chksum += ((uint8_t*)Data_p)[i];
     }
+    uart_put(chksum);
     return 0;
 }
 
@@ -52,15 +59,22 @@ uint8_t ASA_UARTM_rec(uint8_t UID, uint8_t RAdd, uint8_t Bytes, void *Data_p) {
         // TODO handle Bytes exception, if there is.
         return 3;
     }
+    uint8_t chksum = 0;
     
     uart_put(UART_HEADER);
+    chksum += UART_HEADER;
     
     uart_put(UID);
+    chksum += UID;
     
     // The bit UART_WR shold be 0 to send read command
     uart_put( RAdd );
+    chksum += RAdd;
     
     uart_put(Bytes);
+    chksum += Bytes;
+    
+    uart_put(chksum);
     
     for (uint16_t i = 0; i < Bytes; i++) {
         ((uint8_t*)Data_p)[i] = uart_get();
