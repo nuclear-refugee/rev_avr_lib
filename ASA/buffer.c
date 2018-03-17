@@ -33,8 +33,8 @@ inline uint8_t buf_read2(Buf_t *buf_p, uint8_t* data_p) {
 }
 
 inline void buf_write(Buf_t* buf_p, uint8_t data) {
-    buf_p->e ++;
     buf_p->data[ buf_p->e ] = data;
+    buf_p->e ++;
 }
 
 inline uint8_t buf_write2(Buf_t* buf_p, uint8_t data) {

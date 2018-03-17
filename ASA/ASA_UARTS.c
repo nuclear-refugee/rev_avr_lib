@@ -41,7 +41,10 @@ inline void uarts_tx_handle() {
 }
 
 uint8_t uarts_decode_buf_step() {
-    // NOTE This function will call global variable "UartDecoder" and  "UartBuff"
+    // NOTE This function will call global variable "UartDecoder"
+    if (UartDecoder.status == status_done) {
+        return 0;
+    }
     
     uint8_t ch;
     static uint8_t bytes = 0;
@@ -107,6 +110,7 @@ uint8_t uarts_decode_buf_step() {
                 UartDecoder.status = status_chksum;
                 break;
             }
+            break;
         }
         case status_chksum: {
             ch = buf_read(&BufIn);
@@ -115,7 +119,10 @@ uint8_t uarts_decode_buf_step() {
                 UartDecoder.status = status_header;
                 return ERROR_CHKSUM;
             }
-            UartDecoder.status = status_header;
+            UartDecoder.status = status_done;
+            break;
+        }
+        case status_done: {
             break;
         }
     }
