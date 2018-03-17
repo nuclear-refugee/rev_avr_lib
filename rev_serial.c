@@ -3,8 +3,6 @@
 #include "rev_serial.h"
 #include <stdio.h>
 
-#define BAUD (F_CPU/16/S_BAUD-1)
-
 static FILE STDIO_BUFFER = FDEV_SETUP_STREAM(rev_serial_putchar, rev_serial_getchar, _FDEV_SETUP_RW);
 
 int rev_serial_putchar(char c, FILE *stream) {
