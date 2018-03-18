@@ -21,14 +21,18 @@ enum uarts_status {
     status_done    ///< check the chksum of the packet is correct or wrong
 };
 
+/**
+ * @brief The decoder of uart. It will be call by uarts_decode_buf_step. And You
+ *        can use the UartDecoder.status to discribe the status of UartDecoder,
+ *        then do the corresponding motion in your code.
+ */
 struct UartDecoder {
     enum uarts_status status;
     uint8_t uid;
     uint8_t wr;
     uint8_t address;
     uint8_t bytes;
-    uint8_t data[256];
-    uint8_t chksum;
+    uint8_t data[10];
 };
 
 typedef struct UartDecoder UartDecoder_t;
