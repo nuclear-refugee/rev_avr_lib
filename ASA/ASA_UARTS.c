@@ -131,5 +131,3 @@ uint8_t uarts_decode_buf_step() {
     }
     return DECODE_OK;
 }
-
-uint8_t
