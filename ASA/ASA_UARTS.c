@@ -7,7 +7,7 @@
 
 #include "ASA_UARTS.h"
 #include "ASA_general.h"
-#include "buffer.h"
+#include "../buffer.h"
 
 // NOTE The HEADER is not assigned in the datasheet yet, so the value 
 //      is temporary now!!
