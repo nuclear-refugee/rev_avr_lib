@@ -41,10 +41,14 @@ inline void uarts_tx_handle() {
 }
 
 uint8_t uarts_decode_buf_step() {
-    // NOTE This function will call global variable "UartDecoder" and  "UartBuff"
+    // NOTE This function will call global variable "UartDecoder"
+    if (UartDecoder.status == status_done) {
+        return 0;
+    }
     
     uint8_t ch;
     static uint8_t bytes = 0;
+    static uint8_t chksum = 0;
     
     if (buf_is_null(BufIn)) {
         return BUF_NULL;
@@ -52,21 +56,23 @@ uint8_t uarts_decode_buf_step() {
     switch (UartDecoder.status) {
         case status_header: {
             ch = buf_read(&BufIn);
-            UartDecoder.chksum += ch;
             
             if (ch != UART_HEADER) {
-                UartDecoder.chksum = 0;
                 return ERROR_HEADER;
             }
+            // variable initialize
+            chksum = UART_HEADER;
+            bytes  = 0;
+            
             UartDecoder.status = status_uid;
             break;
         }
         case status_uid: {
             ch = buf_read(&BufIn);
-            UartDecoder.chksum += ch;
+            chksum = chksum + ch;
             
             if (ch != UART_UID) {
-                UartDecoder.chksum = 0;
+                chksum = 0;
                 UartDecoder.status = status_header;
                 return ERROR_UID;
             }
@@ -75,7 +81,7 @@ uint8_t uarts_decode_buf_step() {
         }
         case status_wradd: {
             ch = buf_read(&BufIn);
-            UartDecoder.chksum += ch;
+            chksum = chksum + ch;
             
             UartDecoder.wr      = ch >> UART_WR;
             UartDecoder.address = ch & (~(1<<UART_WR));
@@ -85,7 +91,7 @@ uint8_t uarts_decode_buf_step() {
         }
         case status_bytes: {
             ch = buf_read(&BufIn);
-            UartDecoder.chksum += ch;
+            chksum = chksum + ch;
             
             UartDecoder.bytes = ch;
             
@@ -98,7 +104,7 @@ uint8_t uarts_decode_buf_step() {
         }
         case status_data: {
             ch = buf_read(&BufIn);
-            UartDecoder.chksum += ch;
+            chksum = chksum + ch;
             
             UartDecoder.data[bytes] = ch;
             bytes++;
@@ -107,15 +113,19 @@ uint8_t uarts_decode_buf_step() {
                 UartDecoder.status = status_chksum;
                 break;
             }
+            break;
         }
         case status_chksum: {
             ch = buf_read(&BufIn);
             
-            if (ch!= UartDecoder.chksum) {
+            if (ch!= chksum) {
                 UartDecoder.status = status_header;
                 return ERROR_CHKSUM;
             }
-            UartDecoder.status = status_header;
+            UartDecoder.status = status_done;
+            break;
+        }
+        case status_done: {
             break;
         }
     }
