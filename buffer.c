@@ -6,7 +6,7 @@
  *
  */
 
-#include "../buffer.h"
+#include "buffer.h"
 
 inline uint8_t buf_is_full(Buf_t buf) {
     // NOTE if you change BUFFSIZE to other num you should get the rem of (buf.e+1)
