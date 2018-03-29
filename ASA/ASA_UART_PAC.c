@@ -10,6 +10,7 @@
 #include "../buffer.h"
 #include <stdarg.h>
 #include <stdlib.h>
+#include "../../revlib/bit_op.h"
 
 // NOTE The HEADER is not assigned in the datasheet yet, so the value
 //      is temporary now!!
@@ -39,7 +40,7 @@ inline void uart_tx_handle() {
     if (buf_is_null(BufOut)) {
         return;
     } else {
-        uart_put( buf_read(&BufOut) );
+        UDR = buf_read(&BufOut);
     }
 }
 
@@ -52,7 +53,7 @@ uint8_t uart_decode_buf_step() {
     uint8_t ch;
     static uint8_t bytes = 0;
     static uint8_t chksum = 0;
-
+    cli();
     if (buf_is_null(BufIn)) {
         return BUF_NULL;
     }
@@ -140,11 +141,12 @@ uint8_t uart_encoder(uint8_t UID, uint8_t RW, uint8_t addr, uint8_t bytes, void 
     //     return 1;
     // }
     buf_write(&BufOut, UART_HEADER);
+    buf_write(&BufOut, UART_UID);
     buf_write(&BufOut, (RW<<UART_WR_BIT) | addr);
     buf_write(&BufOut, bytes);
     for (uint8_t i = 0; i < bytes; i++) {
-        buf_write(&BufOut, *(uint8_t*)Data_p);
+        buf_write(&BufOut, *((uint8_t*)Data_p+i));
     }
-
+    // BITSET(UCSRA, TXC);
     return 0;
 }
