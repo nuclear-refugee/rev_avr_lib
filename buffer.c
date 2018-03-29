@@ -17,6 +17,10 @@ inline uint8_t buf_is_null(Buf_t buf) {
     return (buf.e == buf.s);
 }
 
+inline uint8_t buf_size(Buf_t buf) {
+    return (buf.e - buf.s);
+};
+
 inline uint8_t buf_read(Buf_t *buf_p) {
     buf_p->s ++;
     return buf_p->data[ buf_p->s - 1 ];

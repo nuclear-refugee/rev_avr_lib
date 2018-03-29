@@ -11,10 +11,10 @@
 
 #include <inttypes.h>
 
-#define BUFFSIZE 255;
+#define BUFFSIZE 256
 
 struct BUFFER {
-    uint8_t data[255];
+    uint8_t data[256];
     uint8_t s; ///< The start index of data array
     uint8_t e; ///< The end index of data array
 };
@@ -24,6 +24,8 @@ typedef struct BUFFER Buf_t;
 uint8_t buf_is_full(Buf_t buf);
 
 uint8_t buf_is_null(Buf_t buf);
+
+uint8_t buf_size(Buf_t buf);
 
 uint8_t buf_read(Buf_t *buf_p);
 
