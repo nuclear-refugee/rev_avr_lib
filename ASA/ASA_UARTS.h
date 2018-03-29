@@ -11,23 +11,34 @@
 #include "../rev_uart.h"
 #include <inttypes.h>
 
-enum uarts_status {
-    status_header, ///< get header
-    status_uid,    ///< get uid
-    status_wradd,  ///< decode W/R and address
-    status_bytes,  ///< get byte
-    status_data,   ///< get data if in write mode
-    status_chksum, ///< check the chksum of the packet is correct or wrong
-    status_done    ///< check the chksum of the packet is correct or wrong
+/******************************************************************************
+ *  Decoder Section
+ ******************************************************************************/
+/**
+ * @brief The state of UartDecoder.
+ */
+enum uarts_state {
+    state_header, ///< get header
+    state_uid,    ///< get uid
+    state_wradd,  ///< decode W/R and address
+    state_bytes,  ///< get byte
+    state_data,   ///< get data if in write mode
+    state_chksum, ///< check the chksum of the packet is correct or wrong
+    state_done    ///< check the chksum of the packet is correct or wrong
 };
 
 /**
+ * @brief The state of UartDecoder.
+ */
+typedef enum uarts_state uarts_state_t;
+
+/**
  * @brief The decoder of uart. It will be call by uarts_decode_buf_step. And You
- *        can use the UartDecoder.status to discribe the status of UartDecoder,
+ *        can use the UartDecoder.state to discribe the state of UartDecoder,
  *        then do the corresponding motion in your code.
  */
 struct UartDecoder {
-    enum uarts_status status;
+    uarts_state_t state;
     uint8_t uid;
     uint8_t wr;
     uint8_t address;
@@ -39,10 +50,10 @@ typedef struct UartDecoder UartDecoder_t;
 
 /**
  * @brief The decoder of uart. It will be call by uarts_decode_buf_step. And You
- *        can use the UartDecoder.status to discribe the status of UartDecoder,
+ *        can use the UartDecoder.state to discribe the state of UartDecoder,
  *        then do the corresponding motion in your code.
  */
-UartDecoder_t UartDecoder;
+extern UartDecoder_t UartDecoder;
 
 /**
  * @brief Handle the RX, it will get data from RX and put into BufIn,
@@ -67,13 +78,25 @@ void uarts_tx_handle();
 #define ERROR_CHKSUM 7
 
 /**
- * @brief It will decode BufIn and put the outcome in UartDecoder. You can 
- *        know once decoding is done when return is DECODE_OK and 
- *        UartDecoder.status is status_header. It should put in main of slave
+ * @brief It will decode BufIn and put the outcome in UartDecoder. You can
+ *        know once decoding is done when return is DECODE_OK and
+ *        UartDecoder.state is state_header. It should put in main of slave
  *        device.
- * 
+ *
  * NOTE This function will call global variable "UartDecoder"
  */
 uint8_t uarts_decode_buf_step();
+
+/******************************************************************************
+   Register Section
+*******************************************************************************/
+uint8_t* UartsReg_p;  ///< Register Array start pointer.
+uint8_t  UartsRegLen; ///< Register Array length.
+
+uint8_t uarts_reg_init(uint8_t len, const uint8_t* data_p);
+uint8_t uarts_reg_put (uint8_t addr, uint8_t data);
+uint8_t uarts_reg_get (uint8_t addr, uint8_t* data_p);
+uint8_t uarts_regs_put(uint8_t addr, uint8_t byte, uint8_t* data_p);
+uint8_t uarts_regs_get(uint8_t addr, uint8_t byte, uint8_t* data_p);
 
 #endif /* __ASA_UARTS_H__ */
